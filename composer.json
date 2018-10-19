@@ -1,0 +1,25 @@
+{
+  "name": "good-system/laravel-email-verifiable",
+  "authors": [
+    {
+      "name": "Harry Guo"
+    }
+  ],
+  "require": {
+    "good-system/good-system": "*"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "GoodSystem\\EmailVerifiable\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "GoodSystem\\EmailVerifiable\\EmailVerifiableServiceProvider"
+      ]
+    }
+  }
+}
+
