@@ -1,0 +1,1 @@
+Purpose of email verification is not specified.  We don't know what to do ... maybe <a href="{{ route('login') }}">log in</a> ?

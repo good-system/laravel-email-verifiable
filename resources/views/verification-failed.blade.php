@@ -1,0 +1,1 @@
+Email verification failed.  <a href="{{ route('email-verifiable.resend') }}">Resend verification link</a> or <a href="{{ route('login') }}">log in</a>.
