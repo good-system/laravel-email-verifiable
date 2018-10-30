@@ -23,12 +23,16 @@ class EmailVerifiableController extends Controller
     /**
      *
      * @param Request $request
-     * @param $model
-     * @param $id
+     * @ param $model
+     * @ param $id
      * @return string
      */
-    public function verify(Request $request, $model, $id)
+    public function verify(Request $request)
     {
+        $model = $request->query('model');
+        $id = $request->query('id');
+        $verifyFor = $request->query('verifyFor');
+
         if (URL::hasValidSignature($request)) {
             return view('good-system.email-verifiable::verified ', ['model' => $model, 'id' => $id]);
         } else {
@@ -40,13 +44,16 @@ class EmailVerifiableController extends Controller
      * @param Request $request
      * @param $model
      * @param $id
+     * @param $verifyFor
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function resend(Request $request, $model, $id)
+    public function resend(Request $request, $model, $id, $verifyFor)
     {
-        $signedUrl = $this->getSignedUrl($model, $id);
+        // $signedUrl = $this->getSignedUrl(['model' => $model, 'id' => $id, 'verifyFor' => $verifyFor]);
+
         // TODO send email to user with the above signed URL, email view, etc. -- refer to template for resending registration verification email
+        // Determine what mailable to use by verifyFor
         // TODO also make email sending queueable
-        return back()->with('resent', true);
+        return 'TO BE IMPLEMENTED'; // back()->with('resent', true);
     }
 }

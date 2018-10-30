@@ -20,29 +20,30 @@ trait UseEmailVerify
     }
 */
     /**
-     * @param string $modelType
-     * @param integer $modelId
-     * @param array $extra -- extra key/value pair(s) to be appended to verification URL
+     * @ param string $modelType
+     * @ param integer $modelId
+     * @ param array $extra -- extra key/value pair(s) to be appended to verification URL
+     * @param array $params - usually contains model, id, email, verifyFor
      * @param integer $expiration
      * @return string
      */
-    protected function getSignedUrl($modelType, $modelId, array $extra = [], $expiration = null)
+    protected function getSignedUrl(array $params = [], $expiration = null)
     {
         if (! $expiration) {
             $expiration = config('email-verifiable.default-expiration', 60);
         }
 
         $signedUrl = URL::temporarySignedRoute(
-            'email-verifiable.verify', Carbon::now()->addMinutes($expiration), ['model' => strtolower($modelType), 'id' => $modelId]
+            'email-verifiable.verify', Carbon::now()->addMinutes($expiration),
+            $params
         );
 
-        foreach ($extra as $key => $value) {
+        // A typical URL https://DOMAIN/email-verifiable/verify?expires=TIMESTAMP&signature=HASH_STRING&email=EMAIL&model=MODEL&id=NUMBER&verifyFor=Mailable_Class_Name
+/*
+        foreach ($params as $key => $value) {
             $signedUrl .= '&' . $key . '=' . $value;
         }
-
-        $signedUrl .= '&model=' . $modelType;
-        $signedUrl .= '&id=' . $modelId;
-
+*/
         return $signedUrl;
     }
 }
